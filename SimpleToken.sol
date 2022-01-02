@@ -27,4 +27,16 @@ contract SimpleToken{
     function balanceOf(address _owner) public view returns (uint256){
         return tokenBalance[_owner];
     }
+    //transfer the tokens to the given address
+    function transfer(address _to, uint256 _value) public returns(bool){
+        //check if sender has enough balance
+        require(tokenBalance[msg.sender] > _value);
+
+        //update balances
+        address _from = msg.sender;
+        tokenOwner = _to;
+        tokenBalance[_from] = tokenBalance[_from] - _value;
+        tokenBalance[_to] = tokenBalance[_to] + _value; 
+        return true; 
+    }
 }
